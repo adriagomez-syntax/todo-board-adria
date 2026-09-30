@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Quicksand:wght@300..700&display=swap');
+
+@import "tailwindcss";
+
+@custom-variant dark (@media (prefers-color-scheme: dark));
+
+@theme {
+	--color-primary: #FFBA62;
+	--color-secondary: #FF8C61;
+	--color-accent-1: #6174FF;
+	--color-accent-2: #61C7FF;
+	--color-accent-3: #764900;
+	--color-text: #2A2A2A;
+
+	--color-background: #F3EDE6;
+	--color-background-mid: #FFF9F3;
+	--color-background-dark: #E0D8CF;
+
+	--font-primary: 'Inter', sans-serif;
+	--font-secondary: 'Quicksand', sans-serif;
+
+	--text-2xs: 0.5rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-primary: #C8842F;
+    --color-secondary: #C65A3A;
+    --color-accent-1: #4E5ED9;
+    --color-accent-2: #3FA7D6;
+    --color-accent-3: #764900;
+    --color-text: #F2F2F2;
+
+    --color-background: #1A1A1A;
+    --color-background-mid: #242424;
+    --color-background-dark: #2F2F2F;
+  }
+}
+
+@layer components {
+	.loader {
+		width: 50px;
+		aspect-ratio: 1;
+		border-radius: 50%;
+		background: 
+			radial-gradient(farthest-side, var(--color-primary) 94%, #0000) top/8px 8px no-repeat,
+			conic-gradient(#0000 30%, var(--color-primary));
+		-webkit-mask: radial-gradient(farthest-side,#0000 calc(100% - 8px), #000 0);
+		animation: loader 1s infinite linear;
+	}
+	@keyframes loader { 
+		100%{transform: rotate(1turn)}
+	}
+}
