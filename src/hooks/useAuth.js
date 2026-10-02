@@ -14,9 +14,7 @@ function useAuth(option = 0) {
 
 		const form = new FormData(event.target)
 		setEmail(form.get("email"))
-		console.log(form.get("email"))
 		setPassword(form.get("password"))
-		console.log(form.get("password"))
 	}
 
 	useEffect(() => {
@@ -33,7 +31,7 @@ function useAuth(option = 0) {
 				let data = null
 
 				switch(option) {
-				case 0:
+				case 1:
 					data = await register(email, password)
 					break;
 				default:
@@ -46,12 +44,16 @@ function useAuth(option = 0) {
 				setErrorMsg(error.message)
 			} finally {
 				setLoading(false)
+				setEmail("")
+				setPassword("")
 			}
 
 		}
 
 		doLogin()
 
+		
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [email, password])
 
 	return { loading, errorMsg, data, handleSubmit }

@@ -1,8 +1,8 @@
 import { useState } from "react"
 import { FaEye, FaEyeSlash } from "react-icons/fa"
-import { FaX } from "react-icons/fa6"
+import { FaXmark } from "react-icons/fa6"
 
-export default function Input({ label = "", icon, value, onChange, name = "", type = "text", placeholder = "", readonly = false, disabled = false, required = false, className = "" }) {
+export default function Input({ label = "", icon, value, onChange, name = "", type = "text", placeholder = "", readonly = false, disabled = false, required = false, ref, className = "", children }) {
 	
 	const [visibility, setVisibility] = useState(false)
 	const [realType, setRealType] = useState(type)
@@ -25,7 +25,10 @@ export default function Input({ label = "", icon, value, onChange, name = "", ty
 	
 	return (
 		<label className="flex flex-col gap-1 text-2xs">
-			{ label }
+			<div className="flex justify-between">
+				{ label }
+				{ children }
+			</div>
 			<div className="flex-1 flex gap-2 items-center justify-between p-2 bg-background-dark rounded-md text-accent-3 text-xs">
 				{Icon && <Icon />}
 				<input
@@ -38,13 +41,14 @@ export default function Input({ label = "", icon, value, onChange, name = "", ty
 					readOnly={ readonly }
 					disabled={ disabled }
 					required={ required }
+					ref={ ref }
 				/>
 				<div className="cursor-pointer">
 					{type === "password"
 						?  visibility
 							? <FaEyeSlash onClick={ toggleVisibility } />
 							: <FaEye onClick={ toggleVisibility } />
-						: value && <FaX onClick={ clearInput } />
+						: value && <FaXmark onClick={ clearInput } />
 					}
 				</div>
 			</div>

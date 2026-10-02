@@ -19,6 +19,7 @@ export default function LoginThirdParty() {
 
 					return (
 						<ButtonSecondary 
+							key={ option.name }
 							className="w-full flex gap-1 items-center justify-center"
 							onClick={ option.func }
 						>
