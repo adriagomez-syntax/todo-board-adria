@@ -32,7 +32,7 @@ export default function Header() {
 					</div>
 					<div className="flex flex-col text-2xs max-w-full min-w-0">
 						<p 
-							className="font-bold capitalize truncate"
+							className="font-bold truncate"
 							title={ user?.user_metadata?.user_name ?? "--" }
 						>
 							{ user?.user_metadata?.user_name ?? "--" }
@@ -46,7 +46,7 @@ export default function Header() {
 					</div>
 				</div>
 				<Button 
-					className="hidden md:block p-2 bg-background rounded-md hover:text-red-500"
+					className=" md:block p-2 bg-background rounded-md hover:text-red-500"
 					onClick={ logout }
 				>
 					<FaSignOutAlt />

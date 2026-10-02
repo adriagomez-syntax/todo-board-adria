@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { login, loginGithub, register } from "../services/auth"
+import { login, loginOAuth, providersOAuth, register } from "../services/auth"
 
 function useAuth(option = 0) {
 
@@ -55,7 +55,14 @@ function useAuth(option = 0) {
 
 	async function doGithub() {
 		doRequest(async () => {
-			const data = await loginGithub()
+			const data = await loginOAuth(providersOAuth.Github)
+			return data
+		})
+	}
+
+	async function doDiscord() {
+		doRequest(async () => {
+			const data = await loginOAuth(providersOAuth.Discord)
 			return data
 		})
 	}
@@ -70,7 +77,7 @@ function useAuth(option = 0) {
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [email, password])
 
-	return { loading, errorMsg, data, handleSubmit, doGithub }
+	return { loading, errorMsg, data, handleSubmit, doGithub, doDiscord }
 }
 
 export default useAuth

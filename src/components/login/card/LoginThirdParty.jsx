@@ -1,15 +1,15 @@
 import ButtonSecondary from "../../common/ButtonSecondary";
 import { useContext } from "react";
 import LoginContext from "../../../context/LoginContext";
-import { FaGithub, FaGoogle } from "react-icons/fa";
+import { FaDiscord, FaGithub } from "react-icons/fa";
 
 export default function LoginThirdParty() {
 	
-	const { authOption, doGithub } = useContext(LoginContext)
+	const { authOption, doGithub, doDiscord } = useContext(LoginContext)
 
 	const loginOption = [
-		{ name: "Google", icon: FaGoogle, func: null },
-		{ name: "GitHub", icon: FaGithub, func: doGithub }
+		{ name: "GitHub", icon: FaGithub, func: doGithub },
+		{ name: "Discord", icon: FaDiscord, func: doDiscord }
 	]
 	
 	return (
