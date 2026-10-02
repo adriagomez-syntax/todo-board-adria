@@ -1,15 +1,13 @@
-import { FaBars, FaRegUser, FaSignOutAlt } from "react-icons/fa";
 import Logo from "../Logo";
-import { logout } from "../../../services/auth";
 import Button from "../Button";
-import { useContext, useState } from "react";
-import SidebarMenu from "./SidebarMenu";
-import DashboardList from "../../main/DashboardList";
-import UserContext from "../../../context/UserContext";
+import { useState } from "react";
+import SidebarMenu from "../SidebarMenu";
+import HeaderUser from "./HeaderUser";
+import SidebarContent from "./SidebarContent";
+import { FaBars } from "react-icons/fa";
 
 export default function Header() {
 	
-	const { user } = useContext(UserContext)
 	const [openMenu, setOpenMenu] = useState(false)
 	
 	function openSidebar() {
@@ -25,37 +23,9 @@ export default function Header() {
 				<FaBars />
 			</Button>
 			<Logo />
-			<div className="flex max-w-1/3 gap-2 items-center">
-				<div className="flex gap-2 items-center max-w-full md:max-w-40">
-					<div className="bg-accent-3 p-2 rounded-full">
-						<FaRegUser className="text-background-mid" />
-					</div>
-					<div className="flex flex-col text-2xs max-w-full min-w-0">
-						<p 
-							className="font-bold truncate"
-							title={ user?.user_metadata?.user_name ?? "--" }
-						>
-							{ user?.user_metadata?.user_name ?? "--" }
-						</p>
-						<p 
-							className="font-semibold tracking-wider text-accent-3 truncate"
-							title={ user?.email ?? "--" }
-						>
-							{ user?.email ?? "--" }
-						</p>
-					</div>
-				</div>
-				<Button 
-					className=" md:block p-2 bg-background rounded-md hover:text-red-500"
-					onClick={ logout }
-				>
-					<FaSignOutAlt />
-				</Button>
-			</div>
+			<HeaderUser />
 			<SidebarMenu open={ openMenu } setOpen={ setOpenMenu }>
-				<div className="flex flex-col gap-4">
-					<DashboardList />
-				</div>
+				<SidebarContent />
 			</SidebarMenu>
 		</header>
 	)
