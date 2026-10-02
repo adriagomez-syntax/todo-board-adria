@@ -1,6 +1,6 @@
-export default function Main({ className = "", children }) {
+export default function Main({ little = true, className = "", children }) {
 	return (
-		<main className={`${className} flex-1 p-4 md:mx-[30vw]`}>
+		<main className={`${className} ${little && "md:mx-[30vw]"} flex-1 p-4`}>
 			{ children }
 		</main>
 	)

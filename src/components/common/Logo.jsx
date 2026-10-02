@@ -1,10 +1,10 @@
 export default function Logo({ className = "" }) {
 	return (
-		<div className={`${className} overflow-hidden`}>
+		<div className={`${className} overflow-hidden h-full flex`}>
 			<img 
 				src="/logo.svg" 
 				alt="KlarTask Logo" 
-				className="h-15 object-contain"
+				className="flex-1 h-full"
 			/>
 		</div>
 	)
