@@ -1,11 +1,16 @@
 import ButtonSecondary from "../../common/ButtonSecondary";
-import { loginOption } from "../../../assets/thirdPartyOptions";
 import { useContext } from "react";
 import LoginContext from "../../../context/LoginContext";
+import { FaGithub, FaGoogle } from "react-icons/fa";
 
 export default function LoginThirdParty() {
 	
-	const { authOption } = useContext(LoginContext)
+	const { authOption, doGithub } = useContext(LoginContext)
+
+	const loginOption = [
+		{ name: "Google", icon: FaGoogle, func: null },
+		{ name: "GitHub", icon: FaGithub, func: doGithub }
+	]
 	
 	return (
 		<div className="w-full flex flex-col gap-4">

@@ -33,9 +33,9 @@ export default function Header() {
 					<div className="flex flex-col text-2xs max-w-full min-w-0">
 						<p 
 							className="font-bold capitalize truncate"
-							title={ user?.user_metadata?.username ?? "--" }
+							title={ user?.user_metadata?.user_name ?? "--" }
 						>
-							{ user?.user_metadata?.username ?? "--" }
+							{ user?.user_metadata?.user_name ?? "--" }
 						</p>
 						<p 
 							className="font-semibold tracking-wider text-accent-3 truncate"

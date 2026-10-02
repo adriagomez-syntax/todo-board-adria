@@ -30,7 +30,7 @@ export default function RegisterForm() {
 					label="Benutzername"
 					icon={ FaUser }
 					value={ username }
-					name="username"
+					name="user_name"
 					onChange={ setUsername }
 					placeholder="Deine Benutzername"
 					required={ true }
