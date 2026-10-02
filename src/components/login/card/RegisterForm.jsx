@@ -1,13 +1,14 @@
 import { useContext, useState } from "react"
 import LoginContext from "../../../context/LoginContext"
 import Input from "../../common/Input"
-import { FaArrowRight, FaEnvelope, FaLock } from "react-icons/fa"
+import { FaArrowRight, FaEnvelope, FaLock, FaUser } from "react-icons/fa"
 import ButtonPrimary from "../../common/ButtonPrimary"
 import PasswordSecurity from "./PasswordSecurity"
 
 export default function RegisterForm() {
 	
 	const [verify, setVerify] = useState(false)
+	const [username, setUsername] = useState("")
 	const [passwordRep, setPasswordRep] = useState("")
 	const { email, setEmail, password, setPassword, errorMsg, handleSubmit } = useContext(LoginContext)
 
@@ -25,6 +26,15 @@ export default function RegisterForm() {
 			onSubmit={ allCorrect }
 		>
 			<div className="flex flex-col gap-2">
+				<Input 
+					label="Benutzername"
+					icon={ FaUser }
+					value={ username }
+					name="username"
+					onChange={ setUsername }
+					placeholder="Deine Benutzername"
+					required={ true }
+				/>
 				<Input
 					label="E-Mail-Adresse"
 					icon={ FaEnvelope }

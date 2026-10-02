@@ -10,9 +10,7 @@ export default function LoginPage() {
 	const [authOption, setAuthOption] = useState(0)
 	const [email, setEmail] = useState("")
 	const [password, setPassword] = useState("")
-	const { loading, errorMsg, data, handleSubmit } = useAuth(authOption)
-
-	console.log(data)
+	const { loading, errorMsg, handleSubmit } = useAuth(authOption)
 
 	return (
 		<Main className="flex-1 flex flex-col gap-4 items-center justify-center">

@@ -8,6 +8,7 @@ function useAuth(option = 0) {
 	const [data, setData] = useState(null)
 	const [email, setEmail] = useState("")
 	const [password, setPassword] = useState("")
+	const [username, setUsername] = useState("")
 
 	function handleSubmit(event) {
 		event.preventDefault()
@@ -15,6 +16,7 @@ function useAuth(option = 0) {
 		const form = new FormData(event.target)
 		setEmail(form.get("email"))
 		setPassword(form.get("password"))
+		setUsername(form.get("username"))
 	}
 
 	useEffect(() => {
@@ -32,7 +34,7 @@ function useAuth(option = 0) {
 
 				switch(option) {
 				case 1:
-					data = await register(email, password)
+					data = await register(email, password, username)
 					break;
 				default:
 					data = await login(email, password)

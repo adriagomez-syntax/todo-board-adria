@@ -1,7 +1,7 @@
 import { supabase } from "../lib/supabase"
 
-export async function register(email, password) {
-	const { data, error} = await supabase.auth.signUp({ email, password })
+export async function register(email, password, username = "") {
+	const { data, error} = await supabase.auth.signUp({ email, password, options: { data: { username } } })
 	
 	if (error) { throw new Error(error.message) }
 	

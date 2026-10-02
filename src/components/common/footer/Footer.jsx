@@ -3,8 +3,8 @@ export default function Footer() {
 		<footer className="flex justify-between gap-2 p-4 bg-background-mid shadow-t text-2xs text-accent-3">
 			© 2026 KlarTask. Alle Rechte vorbehalten.
 			<div className="flex gap-1">
-				<a onClick={ "#" } className="hover:underline cursor-pointer">Impressum</a>
-				<a onClick={ "#" } className="hover:underline cursor-pointer">Datenschutz</a>
+				<a href="#" className="hover:underline">Impressum</a>
+				<a href="#" className="hover:underline">Datenschutz</a>
 			</div>
 		</footer>
 	)
