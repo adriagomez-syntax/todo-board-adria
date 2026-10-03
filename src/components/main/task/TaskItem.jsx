@@ -1,15 +1,18 @@
 import { FaGripVertical, FaPen, FaTrash } from "react-icons/fa";
 import Button from "../../common/Button";
 import Card from "../../common/Card";
-import { useContext } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import ModalContext from "../../../context/ModalContext";
 import TaskContext from "../../../context/TaskContext";
-import { deleteTask } from "../../../services/tasks";
+import { deleteTask, updateTask } from "../../../services/tasks";
 
 export default function TaskItem({ task, textDecoration }) {
 	
 	const { showConfirm, showError } = useContext(ModalContext)
 	const { onDragStart } = useContext(TaskContext)
+	const titleRef = useRef()
+	const [title, setTitle] = useState(task.title)
+	const [editEnabled, setEditEnabled] = useState(false)
 
 	function confirmDelete() {
 		showConfirm(
@@ -27,14 +30,42 @@ export default function TaskItem({ task, textDecoration }) {
 			.then(() => {})
 			.catch(error => showError(error.message))
 	}
+
+	function toggleEdit() {
+		setEditEnabled((prev) => !prev)
+	}
+
+	function updateTitle() {
+		setEditEnabled(false)
+		
+		updateTask({ id: task.id, title: title })
+			.then(() => {})
+			.catch(error => showError(error.message))
+	}
+
+	useEffect(() => {
+		if (editEnabled) { titleRef.current?.focus() }
+	},[editEnabled])
 	
 	return (
 		<Card 
 			className="flex gap-2 justify-between bg-background-dark"
 		>
 			<div className="flex gap-2">
-				<h1 className={`${textDecoration}`}>{ task.title }</h1>
-				<Button className="text-2xs hover:opacity-50">
+				<div>
+					<input
+						className={`${!editEnabled && "hidden"}`}
+						value={ title }
+						onChange={ (event) => setTitle(event.target.value) }
+						onBlur={ () => updateTitle() }
+						ref={ titleRef }
+					/>
+					<h1 className={`${editEnabled &&"hidden"} ${textDecoration}`}>{ task.title }</h1>
+				</div>
+				<Button 
+					className={`${editEnabled && "hidden"} text-2xs hover:opacity-50`}
+					onClick={ () => toggleEdit() }
+				>
 					<FaPen />
 				</Button>
 			</div>

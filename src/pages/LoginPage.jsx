@@ -4,6 +4,7 @@ import useAuth from "../hooks/useAuth"
 import LoginHeader from "../components/login/LoginHeader"
 import LoginContext from "../context/LoginContext"
 import LoginCard from "../components/login/card/LoginCard"
+import Footer from "../components/common/footer/Footer"
 
 export default function LoginPage() {
 
@@ -13,11 +14,14 @@ export default function LoginPage() {
 	const { loading, errorMsg, handleSubmit, doGithub, doDiscord } = useAuth(authOption)
 
 	return (
-		<Main className="flex-1 flex flex-col gap-4 items-center justify-center">
-			<LoginHeader />
-			<LoginContext value={{ authOption, setAuthOption, email, setEmail, password, setPassword, loading, errorMsg, handleSubmit, doGithub, doDiscord }}>
-				<LoginCard />
-			</LoginContext>
-		</Main>
+		<>
+			<Main className="flex-1 flex flex-col gap-4 items-center justify-center">
+				<LoginHeader />
+				<LoginContext value={{ authOption, setAuthOption, email, setEmail, password, setPassword, loading, errorMsg, handleSubmit, doGithub, doDiscord }}>
+					<LoginCard />
+				</LoginContext>
+			</Main>
+			<Footer />
+		</>
 	)
 }
