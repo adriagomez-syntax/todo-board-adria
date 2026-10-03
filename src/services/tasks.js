@@ -19,8 +19,12 @@ export async function createTask(boardId, title, status = "todo") {
 	return data
 }
 
-export async function updateTask(id, status) {
-	const { data, error } = await supabase.from("tasks").update({ status }).eq("id", id)
+export async function updateTask({ id, title, status}) {
+	const updates = {}
+	if (title) { updates.title = title }
+	if (status) { updates.status = status }
+	
+	const { data, error } = await supabase.from("tasks").update(updates).eq("id", id)
 
 	if (error) { throw new Error(error.message) }
 	

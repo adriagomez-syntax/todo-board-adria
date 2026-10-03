@@ -6,10 +6,14 @@ import TaskContext from "../../../context/TaskContext";
 
 export default function TaskList({ type, title, color, textDecoration, tasks }) {
 	
-	const { openCreate } = useContext(TaskContext)
+	const { openCreate, handleDrop } = useContext(TaskContext)
 	
 	return (
-		<div className="flex flex-col gap-4 bg-background-mid p-4 rounded-md">
+		<div 
+			className="flex flex-col gap-4 bg-background-mid p-4 rounded-md"
+			onDragOver={ (event) => event.preventDefault() }
+			onDrop={ () => handleDrop(type) }
+		>
 			<div className="flex justify-between gap-2 items-center">
 				<div className="flex gap-2 items-center">
 					<div className={`${color} p-1 rounded-full`}></div>
@@ -21,7 +25,7 @@ export default function TaskList({ type, title, color, textDecoration, tasks }) 
 				<TaskItem
 					key={ task.id }
 					textDecoration={ textDecoration }
-					{ ...task }
+					task={ task }
 				/>
 			))}
 			<ButtonSecondary 

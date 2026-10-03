@@ -6,10 +6,10 @@ import ModalContext from "../../../context/ModalContext";
 import TaskContext from "../../../context/TaskContext";
 import { deleteTask } from "../../../services/tasks";
 
-export default function TaskItem({ id, title, textDecoration }) {
+export default function TaskItem({ task, textDecoration }) {
 	
 	const { showConfirm, showError } = useContext(ModalContext)
-	const { setLoading, reload } = useContext(TaskContext)
+	const { setLoading, reload, onDragStart } = useContext(TaskContext)
 
 	function confirmDelete() {
 		showConfirm(
@@ -25,7 +25,7 @@ export default function TaskItem({ id, title, textDecoration }) {
 	function deleteEntry() {
 		setLoading(true)
 	
-		deleteTask(id)
+		deleteTask(task.id)
 			.then(() => reload(true))
 			.catch(error => showError(error.message))
 			.finally(() => setLoading(false))
@@ -36,7 +36,7 @@ export default function TaskItem({ id, title, textDecoration }) {
 			className="flex gap-2 justify-between bg-background-dark"
 		>
 			<div className="flex gap-2">
-				<h1 className={`${textDecoration}`}>{ title }</h1>
+				<h1 className={`${textDecoration}`}>{ task.title }</h1>
 				<Button className="text-2xs hover:opacity-50">
 					<FaPen />
 				</Button>
@@ -48,7 +48,13 @@ export default function TaskItem({ id, title, textDecoration }) {
 				>
 					<FaTrash />
 				</Button>
-				<FaGripVertical className="cursor-move" />
+				<div
+					className="cursor-grab active:cursor-grabbing"
+					onDragStart={ (event) => onDragStart(event, task) }
+					draggable
+				>
+					<FaGripVertical />
+				</div>
 			</div>
 		</Card>
 	)
