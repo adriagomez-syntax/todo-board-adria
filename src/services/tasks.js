@@ -12,7 +12,9 @@ export async function getTasks(boardId) {
 }
 
 export async function createTask(boardId, title, status = "todo") {
-	const { data, error } = await supabase.from("tasks").insert({ board_id: boardId, title, status})
+	const { data, error } = await supabase
+		.from("tasks")
+		.insert({ board_id: boardId, title, status})
 
 	if (error) { throw new Error(error.message) }
 	
@@ -24,7 +26,10 @@ export async function updateTask({ id, title, status}) {
 	if (title) { updates.title = title }
 	if (status) { updates.status = status }
 	
-	const { data, error } = await supabase.from("tasks").update(updates).eq("id", id)
+	const { data, error } = await supabase
+		.from("tasks")
+		.update(updates)
+		.eq("id", id)
 
 	if (error) { throw new Error(error.message) }
 	
@@ -32,7 +37,10 @@ export async function updateTask({ id, title, status}) {
 }
 
 export async function deleteTask(id) {
-	const { data, error } = await supabase.from("tasks").delete().eq("id", id)
+	const { data, error } = await supabase
+		.from("tasks")
+		.delete()
+		.eq("id", id)
 
 	if (error) { throw new Error(error.message) }
 	
