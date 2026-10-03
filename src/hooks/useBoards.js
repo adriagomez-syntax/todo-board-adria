@@ -1,40 +1,43 @@
 import { useEffect, useState } from "react"
 import { getBoards } from "../services/boards"
+import { supabase } from "../lib/supabase"
 
 function useBoards() {
 	const [boards, setBoards] = useState(null)
 	const [loading, setLoading] = useState(true)
 	const [errorMsg, setErrorMsg] = useState(null)
 
-	async function reload(ignore = false) {
-		if (!ignore) { setLoading(true) }
-		setErrorMsg(null)
-
-		getBoards()
-			.then(data => setBoards(data))
-			.catch(error => setErrorMsg(error.message))
-			.finally(() => {if (!ignore) { setLoading(false) }})
-	}
-
 	useEffect(() => {
 		
-		let ignore = false;
+		async function load() {
+			setLoading(true)
+			setErrorMsg(null)
+
+			getBoards()
+				.then(data => setBoards(data))
+				.catch(error => setErrorMsg(error.message))
+				.finally(() => setLoading(false))
+		}
+
+		const channel = supabase
+			.channel("boards")
+			.on(
+				"postgres_changes",
+				{
+					event: "*",
+					schema: "public",
+					table: "boards"
+				},
+				load
+			)
+			.subscribe()
+
+		load()
 		
-		getBoards()
-			.then(data => {
-				if (!ignore) { setBoards(data) }
-			})
-			.catch(error => {
-				if (!ignore) { setErrorMsg(error.message) }
-			})
-			.finally(() => {
-				if (!ignore) { setLoading(false) }
-			})
-		
-		return () => ignore = true
+		return () => supabase.removeChannel(channel)
 	}, [])
 
-	return { boards, loading, errorMsg, setLoading, reload }
+	return { boards, loading, errorMsg }
 }
 
 export default useBoards

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { getTasks } from "../services/tasks"
+import { supabase } from "../lib/supabase"
 
 function useTasks(boardId) {
 	const [loading, setLoading] = useState(true)
@@ -7,16 +8,6 @@ function useTasks(boardId) {
 	const [todoList, setTodoList ] = useState([])
 	const [doingList, setDoingList] = useState([])
 	const [doneList, setDoneList ] = useState([])
-
-	async function reload(ignore = false) {
-		if (!ignore) { setLoading(true) }
-		setErrorMsg(null)
-
-		getTasks(boardId)
-			.then(data => spreadTasks(data))
-			.catch(error => setErrorMsg(error.message))
-			.finally(() => {if (!ignore) { setLoading(false) }})
-	}
 
 	function spreadTasks(tasks) {
 		setTodoList(tasks.filter(task => task.status === "todo"))
@@ -27,24 +18,37 @@ function useTasks(boardId) {
 	useEffect(() => {
 		
 		if (!boardId) { return }
+		
+		async function load() {
+			setLoading(true)
+			setErrorMsg(null)
 
-		let ignore = false;
+			getTasks(boardId)
+				.then(data => spreadTasks(data))
+				.catch(error => setErrorMsg(error.message))
+				.finally(() => setLoading(false))
+		}
 		
-		getTasks(boardId)
-			.then(data => {
-				if (!ignore) { spreadTasks(data) }
-			})
-			.catch(error => {
-				if (!ignore) { setErrorMsg(error.message) }
-			})
-			.finally(() => {
-				if (!ignore) { setLoading(false) }
-			})
-		
-		return () => ignore = true
+		const channel = supabase
+			.channel(`tasks-board-${boardId}`)
+			.on(
+				'postgres_changes',
+				{ 
+					event: "*", 
+					schema: "public", 
+					table: "tasks",
+					filter: `board_id=eq.${boardId}`
+				},
+				() => load()
+			)
+			.subscribe()
+
+		load()
+
+		return () => supabase.removeChannel(channel)
 	}, [boardId])
 
-	return { todoList, doingList, doneList, loading, errorMsg, setLoading, reload }
+	return { todoList, doingList, doneList, loading, errorMsg }
 }
 
 export default useTasks

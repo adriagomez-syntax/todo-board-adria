@@ -11,13 +11,13 @@ import useBoardCreate from "../hooks/useBoardCreate";
 
 export default function MainPage() {
 	
-	const { boards, loading, errorMsg, setLoading, reload } = useBoards()
+	const { boards, loading, errorMsg } = useBoards()
 	const [dashboardSelected, setDashboardSelected] = useState(null)
 	const { titleBoard, setTitleBoard, titleBoardRef, openBoard, isBoardOpen, closeBoard } = useBoardCreate()
 	const [openMenu, setOpenMenu] = useState(false)
 
 	return (
-		<BoardContext value={{ boards, loading, errorMsg, setLoading, reload, dashboardSelected, setDashboardSelected, titleBoard, setTitleBoard, titleBoardRef, openBoard, isBoardOpen, closeBoard, setOpenMenu }}>
+		<BoardContext value={{ boards, loading, errorMsg, dashboardSelected, setDashboardSelected, titleBoard, setTitleBoard, titleBoardRef, openBoard, isBoardOpen, closeBoard, setOpenMenu }}>
 			<Header
 				openMenu={ openMenu }
 				setOpenMenu={ setOpenMenu }

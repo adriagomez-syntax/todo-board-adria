@@ -9,7 +9,7 @@ import { deleteTask } from "../../../services/tasks";
 export default function TaskItem({ task, textDecoration }) {
 	
 	const { showConfirm, showError } = useContext(ModalContext)
-	const { setLoading, reload, onDragStart } = useContext(TaskContext)
+	const { onDragStart } = useContext(TaskContext)
 
 	function confirmDelete() {
 		showConfirm(
@@ -23,12 +23,9 @@ export default function TaskItem({ task, textDecoration }) {
 	}
 
 	function deleteEntry() {
-		setLoading(true)
-	
 		deleteTask(task.id)
-			.then(() => reload(true))
+			.then(() => {})
 			.catch(error => showError(error.message))
-			.finally(() => setLoading(false))
 	}
 	
 	return (

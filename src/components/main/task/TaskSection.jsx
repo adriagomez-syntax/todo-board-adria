@@ -17,7 +17,7 @@ export default function TaskSection() {
 	
 	const { showError } = useContext(ModalContext)
 	const { dashboardSelected } = useContext(BoardContext)
-	const { todoList, doingList, doneList, loading, errorMsg, setLoading, reload } = useTasks(dashboardSelected?.id)
+	const { todoList, doingList, doneList, loading, errorMsg } = useTasks(dashboardSelected?.id)
 
 	const taskTypes = [
 		{ type: "todo", title: "Ausstehend", color: "bg-background-dark", textDecoration: "", tasks: todoList },
@@ -26,12 +26,9 @@ export default function TaskSection() {
 	]
 
 	function handleUpdate(task, status) {
-		setLoading(true)
-
 		updateTask({ id: task.id, status: status })
-			.then(() => reload(true))
+			.then(() => {})
 			.catch(error => showError(error.message))
-			.finally(() => setLoading(false))
 	}
 
 	const { setDragTask, handleDrop, onDragStart } = useTaskDrag(handleUpdate)
@@ -43,7 +40,7 @@ export default function TaskSection() {
 				? <Loader />
 				: errorMsg
 					? <ShowError error={ errorMsg } />
-					: <TaskContext value={{ openTask, setLoading, reload, setDragTask, handleDrop, onDragStart }}>
+					: <TaskContext value={{ openTask, setDragTask, handleDrop, onDragStart }}>
 						<div>
 							<ButtonPrimary 
 								className="flex gap-1 justify-center items-center"

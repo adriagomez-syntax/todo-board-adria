@@ -10,7 +10,7 @@ export default function DashboardItem({ id, title, created_at }) {
 	
 	const navigate = useNavigate()
 	const { showError, showConfirm } = useContext(ModalContext)
-	const { dashboardSelected, setLoading, reload } = useContext(BoardContext)
+	const { dashboardSelected } = useContext(BoardContext)
 
 	function confirmDelete() {
 		showConfirm(
@@ -24,16 +24,9 @@ export default function DashboardItem({ id, title, created_at }) {
 	}
 
 	async function deleteEntry() {
-		setLoading(true)
-
 		deleteBoard(id)
-			.then(() => {
-				navigate("/board")
-				reload(true)
-			})
+			.then(() => navigate("/"))
 			.catch(error => showError(error.message))
-			.finally(() => setLoading(false))
-
 	}
 	
 	return (

@@ -6,7 +6,6 @@ import Input from "../../common/Input";
 import ButtonPrimary from "../../common/ButtonPrimary";
 import ButtonSecondary from "../../common/ButtonSecondary";
 import SelectorButtons from "../../common/SelectorButtons";
-import TaskContext from "../../../context/TaskContext";
 import { createTask } from "../../../services/tasks";
 import ModalContext from "../../../context/ModalContext";
 
@@ -14,7 +13,6 @@ export default function TaskCreate({ isTaskOpen, titleTask, setTitleTask, titleT
 	
 	const { showError } = useContext(ModalContext)
 	const { dashboardSelected } = useContext(BoardContext)
-	const { setLoading, reload } = useContext(TaskContext)
 	const statusOptions = [
 		{ text: "Ausstehend", value: "todo" },
 		{ text: "In Bearbeitung", value: "doing" },
@@ -23,16 +21,13 @@ export default function TaskCreate({ isTaskOpen, titleTask, setTitleTask, titleT
 
 	function onSubmit(event) {
 		event.preventDefault()
-
-		setLoading(true)
 		
 		const titleSend = titleTask;
 		closeTask()
 
 		createTask(dashboardSelected?.id, titleSend, statusTask)
-			.then(() => reload(true))
+			.then(() => {})
 			.catch(error => showError(error.message))
-			.finally(() => setLoading(false))
 	}
 
 	return (
