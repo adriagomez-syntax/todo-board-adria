@@ -1,30 +1,30 @@
 import { useEffect, useRef, useState } from "react"
 
 function useTaskCreate() {
-	const [createOpen, setCreateOpen] = useState(false)
-	const [title, setTitle] = useState("")
-	const titleRef = useRef(null)
-	const [status, setStatus] = useState("todo")
+	const [taskOpen, setTaskOpen] = useState(false)
+	const [titleTask, setTitleTask] = useState("")
+	const titleTaskRef = useRef(null)
+	const [statusTask, setStatusTask] = useState("todo")
 
-	function openCreate(type = "todo") {
-		setStatus(type)
-		setCreateOpen(true)
+	function openTask(type = "todo") {
+		setStatusTask(type)
+		setTaskOpen(true)
 	}
 
-	function closeCreate() {
-		setCreateOpen(false)
-		setTitle("")
+	function closeTask() {
+		setTaskOpen(false)
+		setTitleTask("")
 	}
 
-	function isCreateOpen() {
-		return createOpen
+	function isTaskOpen() {
+		return taskOpen
 	}
 
 	useEffect(() => {
-		if (createOpen) { titleRef.current?.focus() }
-	}, [createOpen])
+		if (taskOpen) { titleTaskRef.current?.focus() }
+	}, [taskOpen])
 
-	return { title, setTitle, titleRef, status, setStatus, isCreateOpen, openCreate, closeCreate }
+	return { titleTask, setTitleTask, titleTaskRef, statusTask, setStatusTask, isTaskOpen, openTask, closeTask }
 }
 
 export default useTaskCreate

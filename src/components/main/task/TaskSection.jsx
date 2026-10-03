@@ -35,8 +35,7 @@ export default function TaskSection() {
 	}
 
 	const { setDragTask, handleDrop, onDragStart } = useTaskDrag(handleUpdate)
-
-	const { title, setTitle, titleRef, status, setStatus, openCreate, isCreateOpen, closeCreate } = useTaskCreate()
+	const { titleTask, setTitleTask, titleTaskRef, statusTask, setStatusTask, isTaskOpen, openTask, closeTask } = useTaskCreate()
 
 	return (
 		<section className="flex flex-col gap-4 p-4 h-full">
@@ -44,11 +43,11 @@ export default function TaskSection() {
 				? <Loader />
 				: errorMsg
 					? <ShowError error={ errorMsg } />
-					: <TaskContext value={{ openCreate, setLoading, reload, setDragTask, handleDrop, onDragStart }}>
+					: <TaskContext value={{ openTask, setLoading, reload, setDragTask, handleDrop, onDragStart }}>
 						<div>
 							<ButtonPrimary 
 								className="flex gap-1 justify-center items-center"
-								onClick={ () => openCreate() }
+								onClick={ () => openTask() }
 							>
 								<FaPlusCircle />
 								<p>Neue Aufgabe erstellen</p>
@@ -63,13 +62,13 @@ export default function TaskSection() {
 							))}
 						</div>
 						<TaskCreate
-							open={ isCreateOpen() }
-							title={ title }
-							setTitle={ setTitle }
-							titleRef={ titleRef }
-							status={ status }
-							setStatus={ setStatus }
-							onClose={ closeCreate }
+							isTaskOpen={ isTaskOpen() }
+							titleTask={ titleTask }
+							setTitleTask={ setTitleTask }
+							titleTaskRef={ titleTaskRef }
+							statusTask={ statusTask }
+							setStatusTask={ setStatusTask }
+							closeTask={ closeTask }
 						/>
 					</TaskContext>
 			}

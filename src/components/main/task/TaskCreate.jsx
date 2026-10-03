@@ -10,7 +10,7 @@ import TaskContext from "../../../context/TaskContext";
 import { createTask } from "../../../services/tasks";
 import ModalContext from "../../../context/ModalContext";
 
-export default function TaskCreate({ open, title, setTitle, titleRef, status, setStatus, onClose }) {
+export default function TaskCreate({ isTaskOpen, titleTask, setTitleTask, titleTaskRef, statusTask, setStatusTask, closeTask }) {
 	
 	const { showError } = useContext(ModalContext)
 	const { dashboardSelected } = useContext(BoardContext)
@@ -26,10 +26,10 @@ export default function TaskCreate({ open, title, setTitle, titleRef, status, se
 
 		setLoading(true)
 		
-		const titleSend = title;
-		onClose()
+		const titleSend = titleTask;
+		closeTask()
 
-		createTask(dashboardSelected?.id, titleSend, status)
+		createTask(dashboardSelected?.id, titleSend, statusTask)
 			.then(() => reload(true))
 			.catch(error => showError(error.message))
 			.finally(() => setLoading(false))
@@ -37,8 +37,8 @@ export default function TaskCreate({ open, title, setTitle, titleRef, status, se
 
 	return (
 		<Modal
-			open={ open }
-			setOpen={ onClose }
+			open={ isTaskOpen }
+			setOpen={ closeTask }
 		>
 			<form 
 				className="flex flex-col gap-4"
@@ -60,15 +60,15 @@ export default function TaskCreate({ open, title, setTitle, titleRef, status, se
 					<SelectorButtons
 						label="Status"
 						options={ statusOptions }
-						selected={ status }
-						setSelected={ setStatus }
+						selected={ statusTask }
+						setSelected={ setStatusTask }
 					/>
 					<Input
 						label="Aufgabetitel"
 						icon={ FaPen }
-						value={ title }
-						onChange={ setTitle }
-						ref={ titleRef }
+						value={ titleTask }
+						onChange={ setTitleTask }
+						ref={ titleTaskRef }
 						required={ true }
 					/>
 				</div>
@@ -76,7 +76,7 @@ export default function TaskCreate({ open, title, setTitle, titleRef, status, se
 					<ButtonPrimary type="submit">
 						Aufgabe speichern
 					</ButtonPrimary>
-					<ButtonSecondary onClick={ () => onClose() }>
+					<ButtonSecondary onClick={ () => closeTask() }>
 						Abbrechen
 					</ButtonSecondary>
 				</div>

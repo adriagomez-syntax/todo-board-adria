@@ -8,7 +8,7 @@ import ModalContext from "../../../context/ModalContext";
 import BoardContext from "../../../context/BoardContext";
 import { useNavigate } from "react-router";
 
-export default function DashboardCreate({ title, setTitle, inputRef, onClose }) {
+export default function DashboardCreate({ titleBoard, setTitleBoard, titleBoardRef, closeBoard }) {
 	
 	const navigate = useNavigate()
 	const { showError } = useContext(ModalContext)
@@ -19,8 +19,8 @@ export default function DashboardCreate({ title, setTitle, inputRef, onClose }) 
 
 		setLoading(true)
 
-		const titleSend = title
-		onClose()
+		const titleSend = titleBoard
+		closeBoard()
 
 		createBoard(titleSend)
 			.then(data => {
@@ -46,9 +46,9 @@ export default function DashboardCreate({ title, setTitle, inputRef, onClose }) 
 			<Input
 				label="Titel des Dashboards"
 				icon={ FaPen }
-				value={ title }
-				onChange={ setTitle }
-				ref={ inputRef }
+				value={ titleBoard }
+				onChange={ setTitleBoard }
+				ref={ titleBoardRef }
 				required={ true }
 			/>
 			<div className="flex flex-col gap-2">
@@ -59,7 +59,7 @@ export default function DashboardCreate({ title, setTitle, inputRef, onClose }) 
 					<FaCheck />
 					Dashboard erstellen
 				</ButtonPrimary>
-				<ButtonSecondary onClick={ () => onClose() }>
+				<ButtonSecondary onClick={ () => closeBoard() }>
 					Abbrechen
 				</ButtonSecondary>
 			</div>

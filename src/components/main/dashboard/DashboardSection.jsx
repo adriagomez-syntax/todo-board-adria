@@ -4,25 +4,13 @@ import DashboardEmpty from "./DashboardEmpty";
 import Loader from "../../common/Loader";
 import ShowError from "../../common/ShowError"
 import SidebarMenu from "../../common/SidebarMenu";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext } from "react";
 import DashboardCreate from "./DashboardCreate";
 import BoardContext from "../../../context/BoardContext";
 
 export default function DashboardSection({ menuClassName = "", className = "" }) {
 	
-	const { boards, loading, errorMsg } = useContext(BoardContext)
-	const [menuOpen, setMenuOpen] = useState(false)
-	const [title, setTitle] = useState("")
-	const inputRef = useRef(null)
-
-	function onClose() {
-		setMenuOpen(false)
-		setTitle("")
-	}
-
-	useEffect(() => {
-		if (menuOpen) { inputRef.current?.focus() }
-	}, [menuOpen])
+	const { boards, loading, errorMsg, isBoardOpen, closeBoard, titleBoard, setTitleBoard, titleBoardRef } = useContext(BoardContext)
 	
 	return (
 		<section className={`${className} flex flex-col gap-4 h-full overflow-hidden`}>
@@ -42,20 +30,20 @@ export default function DashboardSection({ menuClassName = "", className = "" })
 				: errorMsg
 					? <ShowError error={ errorMsg } />
 					: boards && boards.length > 0
-						? <DashboardList openCreate={ setMenuOpen } />
-						: <DashboardEmpty openCreate={ setMenuOpen } />
+						? <DashboardList />
+						: <DashboardEmpty />
 			}
 			<SidebarMenu
 				className={ menuClassName }
 				direction="bottom" 
-				open={ menuOpen } 
-				setOpen={ onClose }
+				open={ isBoardOpen() } 
+				setOpen={ closeBoard }
 			>
 				<DashboardCreate
-					title={ title }
-					setTitle={ setTitle }
-					inputRef={ inputRef } 
-					onClose={ onClose }
+					titleBoard={ titleBoard }
+					setTitleBoard={ setTitleBoard }
+					titleBoardRef={ titleBoardRef } 
+					closeBoard={ closeBoard }
 				/>
 			</SidebarMenu>
 		</section>

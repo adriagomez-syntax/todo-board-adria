@@ -4,13 +4,13 @@ import ButtonPrimary from "../../common/ButtonPrimary";
 import { FaPlusCircle } from "react-icons/fa";
 import DashboardItem from "./DashboardItem"
 
-export default function DashboardList({ openCreate }) {
+export default function DashboardList() {
 	
-	const { boards } = useContext(BoardContext)
+	const { boards, openBoard } = useContext(BoardContext)
 
 	return (
 		<div className="flex flex-col gap-4 h-full overflow-hidden">
-			<ul className="flex flex-col gap-1 h-full overflow-y-scroll">
+			<ul className="flex flex-col gap-2 h-full overflow-y-scroll">
 				{boards && boards.map(dashboard => (
 					<DashboardItem
 						key={ dashboard.id }
@@ -20,7 +20,7 @@ export default function DashboardList({ openCreate }) {
 			</ul>
 			<ButtonPrimary 
 				className="flex gap-1 justify-center items-center"
-				onClick={ () => openCreate(true) }
+				onClick={ () => openBoard() }
 			>
 				<FaPlusCircle />
 				Neues Dashboard

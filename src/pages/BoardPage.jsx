@@ -2,6 +2,7 @@ import { useContext, useEffect } from "react"
 import { useNavigate, useParams } from "react-router"
 import BoardContext from "../context/BoardContext"
 import TaskSection from "../components/main/task/TaskSection"
+import TaskEmpty from "../components/main/task/TaskEmpty"
 
 export default function BoardPage() {
 	
@@ -25,6 +26,11 @@ export default function BoardPage() {
 	}, [id, setDashboardSelected, navigate, boards, board])
 
 	return (
-		<TaskSection />
+		<>
+			{ boards && boards.length > 0
+				? <TaskSection />
+				: <TaskEmpty />
+			}
+		</>
 	)
 }

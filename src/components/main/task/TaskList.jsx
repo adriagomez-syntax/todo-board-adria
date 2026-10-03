@@ -6,7 +6,7 @@ import TaskContext from "../../../context/TaskContext";
 
 export default function TaskList({ type, title, color, textDecoration, tasks }) {
 	
-	const { openCreate, handleDrop } = useContext(TaskContext)
+	const { openTask, handleDrop } = useContext(TaskContext)
 	
 	return (
 		<div 
@@ -30,7 +30,7 @@ export default function TaskList({ type, title, color, textDecoration, tasks }) 
 			))}
 			<ButtonSecondary 
 				className="flex gap-1 justify-center items-center"
-				onClick={ () => openCreate(type) }
+				onClick={ () => openTask(type) }
 			>
 				<FaPlusCircle />
 				<p>Aufgabe hier einfügen</p>

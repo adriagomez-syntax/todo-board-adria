@@ -7,15 +7,21 @@ import Footer from "../components/common/footer/Footer";
 import { useState } from "react";
 import BoardContext from "../context/BoardContext"
 import useBoards from "../hooks/useBoards"
+import useBoardCreate from "../hooks/useBoardCreate";
 
 export default function MainPage() {
 	
 	const { boards, loading, errorMsg, setLoading, reload } = useBoards()
 	const [dashboardSelected, setDashboardSelected] = useState(null)
+	const { titleBoard, setTitleBoard, titleBoardRef, openBoard, isBoardOpen, closeBoard } = useBoardCreate()
+	const [openMenu, setOpenMenu] = useState(false)
 
 	return (
-		<BoardContext value={{ boards, loading, errorMsg, setLoading, reload, dashboardSelected, setDashboardSelected }}>
-			<Header />
+		<BoardContext value={{ boards, loading, errorMsg, setLoading, reload, dashboardSelected, setDashboardSelected, titleBoard, setTitleBoard, titleBoardRef, openBoard, isBoardOpen, closeBoard, setOpenMenu }}>
+			<Header
+				openMenu={ openMenu }
+				setOpenMenu={ setOpenMenu }
+			/>
 			<Main 
 				className="flex gap-4"
 				little={ false }
