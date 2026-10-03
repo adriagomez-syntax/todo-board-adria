@@ -4,11 +4,13 @@ import { deleteBoard } from "../../../services/boards";
 import { useContext } from "react";
 import ModalContext from "../../../context/ModalContext";
 import BoardContext from "../../../context/BoardContext";
+import { useNavigate } from "react-router";
 
 export default function DashboardItem({ setLoading, reload, id, title, created_at }) {
 	
+	const navigate = useNavigate()
 	const { showError, showConfirm } = useContext(ModalContext)
-	const { dashboardSelected, setDashboardSelected } = useContext(BoardContext)
+	const { dashboardSelected } = useContext(BoardContext)
 
 	function confirmDelete() {
 		showConfirm(
@@ -26,7 +28,7 @@ export default function DashboardItem({ setLoading, reload, id, title, created_a
 
 		deleteBoard(id)
 			.then(() => {
-				setDashboardSelected((prev) => prev === id ? null : prev)
+				navigate("/board")
 				reload(true)
 			})
 			.catch(error => showError(error.message))
@@ -37,7 +39,7 @@ export default function DashboardItem({ setLoading, reload, id, title, created_a
 	return (
 		<li 
 			className={`${id === dashboardSelected ? "bg-primary/40 border-l-2 border-accent-3" : "bg-background-dark cursor-pointer hover:opacity-80"} px-3 py-2  rounded-md`}
-			onClick={() => setDashboardSelected(id)}
+			onClick={() => navigate(`/board/${id}`)}
 		>
 			<div className="flex gap-2 justify-between items-center">
 				<h1 className="font-secondary font-bold tracking-wider text-md truncate">

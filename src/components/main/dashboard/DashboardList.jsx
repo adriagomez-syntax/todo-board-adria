@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import BoardContext from "../../../context/BoardContext";
 import ButtonPrimary from "../../common/ButtonPrimary";
 import { FaPlusCircle } from "react-icons/fa";
@@ -6,12 +6,7 @@ import DashboardItem from "./DashboardItem"
 
 export default function DashboardList({ openCreate }) {
 	
-	const { boards, dashboardSelected, setDashboardSelected, setLoading, reload } = useContext(BoardContext)
-	
-	useEffect(() => {
-		if (dashboardSelected === null && boards.length > 0) { setDashboardSelected(boards[0].id) }
-	
-	}, [boards, dashboardSelected, setDashboardSelected])
+	const { boards, setLoading, reload } = useContext(BoardContext)
 
 	return (
 		<div className="flex flex-col gap-4 h-full overflow-hidden">

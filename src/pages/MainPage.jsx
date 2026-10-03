@@ -12,7 +12,7 @@ export default function MainPage() {
 	
 	const { boards, loading, errorMsg, setLoading, reload } = useBoards()
 	const [dashboardSelected, setDashboardSelected] = useState(null)
-	
+
 	return (
 		<BoardContext value={{ boards, loading, errorMsg, setLoading, reload, dashboardSelected, setDashboardSelected }}>
 			<Header />
@@ -26,8 +26,8 @@ export default function MainPage() {
 				/>
 				<div className="flex-1">
 					<Routes>
-						<Route path="/" element={<BoardPage />} />
 						<Route path="/board/:id" element={<BoardPage />} />
+						<Route path="/*" element={<BoardPage />} />
 					</Routes>
 				</div>
 			</Main>

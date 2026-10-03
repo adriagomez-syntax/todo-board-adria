@@ -37,7 +37,7 @@ export default function DashboardSection({ menuClassName = "", className = "" })
 					? <ShowError error={ errorMsg } />
 					: boards.length > 0
 						? <DashboardList openCreate={ setMenuOpen } />
-						: <DashboardEmpty />
+						: <DashboardEmpty openCreate={ setMenuOpen } />
 			}
 			<SidebarMenu
 				className={ menuClassName }

@@ -1,17 +1,30 @@
 import { useContext, useEffect } from "react"
-import { useParams } from "react-router"
+import { useNavigate, useParams } from "react-router"
 import BoardContext from "../context/BoardContext"
 
 export default function BoardPage() {
 	
+	const navigate = useNavigate()
 	const params = useParams()
-	const id = params?.id ?? null
+	let id = params?.id ?? null
+	if (id !== null) { id = Number(id) }
 
-	const { setDashboardSelected } = useContext(BoardContext)
-	
+	const { boards, setDashboardSelected } = useContext(BoardContext)
+	const board = id !== null ? boards?.find(item => item.id === id) ?? null : null
+
 	useEffect(() => {
+		if (id === null && boards.length > 0) {
+			navigate(`/board/${boards[0].id}`)
+			return
+		}
+
+		if (id !== null && board === null) {
+			navigate("/board")
+			return
+		}
+
 		setDashboardSelected(id)
-	}, [id, setDashboardSelected])
+	}, [id, setDashboardSelected, navigate, boards, board])
 
 	return (
 		<section>

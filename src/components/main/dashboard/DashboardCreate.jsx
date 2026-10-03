@@ -6,12 +6,14 @@ import ButtonSecondary from "../../common/ButtonSecondary";
 import { createBoard } from "../../../services/boards";
 import ModalContext from "../../../context/ModalContext";
 import BoardContext from "../../../context/BoardContext";
+import { useNavigate } from "react-router";
 
 export default function DashboardCreate({ inputRef, setOpen }) {
 	
+	const navigate = useNavigate()
 	const [title, setTitle] = useState("")
 	const { showError } = useContext(ModalContext)
-	const { setDashboardSelected, setLoading, reload } = useContext(BoardContext)
+	const { setLoading, reload } = useContext(BoardContext)
 
 	async function onSubmit(event) {
 		event.preventDefault()
@@ -24,7 +26,7 @@ export default function DashboardCreate({ inputRef, setOpen }) {
 
 		createBoard(titleSend)
 			.then(data => {
-				setDashboardSelected(data?.id ?? null)
+				if (data?.id !== null) { navigate(`/board/${data.id}`) }
 				reload(true)
 			})
 			.catch(error => showError(error.message))
