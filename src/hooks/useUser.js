@@ -10,7 +10,7 @@ function useUser() {
 			setUser(loadedUser)
 		}
 		loadSession()
-
+		
 		const data = subscribeSession(setUser)
 
 		return () => data.subscription.unsubscribe()

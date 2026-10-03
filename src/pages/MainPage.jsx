@@ -9,7 +9,7 @@ export default function MainPage() {
 		>
 			<DashboardSection className="hidden md:flex md:w-1/5 md:max-w-1/5" />
 			<div className="flex-1">
-				
+
 			</div>
 		</Main>
 	)

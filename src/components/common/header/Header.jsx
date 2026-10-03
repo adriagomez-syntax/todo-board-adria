@@ -9,22 +9,18 @@ import { FaBars } from "react-icons/fa";
 export default function Header() {
 	
 	const [openMenu, setOpenMenu] = useState(false)
-	
-	function openSidebar() {
-		setOpenMenu(true)
-	}
 
 	return (
 		<header className="flex justify-between items-center h-15 p-4 shadow-b bg-background-mid">
 			<Button 
 				className="md:hidden bg-background p-2 rounded-md"
-				onClick={ openSidebar }
+				onClick={ () => setOpenMenu(true) }
 			>
 				<FaBars />
 			</Button>
-			<Logo />
+			<Logo className="flex-1 flex justify-center md:justify-start items-center w-full h-full" />
 			<HeaderUser />
-			<SidebarMenu open={ openMenu } setOpen={ setOpenMenu }>
+			<SidebarMenu direction="left" open={ openMenu } setOpen={ setOpenMenu }>
 				<SidebarContent />
 			</SidebarMenu>
 		</header>

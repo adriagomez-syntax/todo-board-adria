@@ -1,0 +1,66 @@
+import { FaCheck, FaPen, FaRegCalendarPlus } from "react-icons/fa";
+import Input from "../../common/Input";
+import { useContext, useState } from "react";
+import ButtonPrimary from "../../common/ButtonPrimary";
+import ButtonSecondary from "../../common/ButtonSecondary";
+import { createBoard } from "../../../services/boards";
+import ModalContext from "../../../context/ModalContext";
+import UserContext from "../../../context/UserContext";
+
+export default function DashboardCreate({ setOpen, setLoading, reload }) {
+	
+	const [title, setTitle] = useState("")
+	const { showError } = useContext(ModalContext)
+	const { setDashboardSelected } = useContext(UserContext)
+
+	async function onSubmit(event) {
+		event.preventDefault()
+
+		setLoading(true)
+		setOpen(false)
+
+		const titleSend = title
+		setTitle("")
+
+		createBoard(titleSend)
+			.then(data => {
+				setDashboardSelected(data?.id ?? null)
+				reload(true)
+			})
+			.catch(error => showError(error.message))
+			.finally(() => setLoading(false))
+	}
+
+	return (
+		<form
+			className="flex flex-col gap-4 p-4 bg-background-mid"
+			onSubmit={ onSubmit }
+		>
+			<div className="flex gap-2 items-center">
+				<div className="p-2 bg-primary rounded-md text-accent-3">
+					<FaRegCalendarPlus />
+				</div>
+				<h1 className="">Neues Dashboard erstellen</h1>
+			</div>
+			<p className="font-light text-2xs">Organisiere ein neues Projekt</p>
+			<Input
+				label="Titel des Dashboards"
+				icon={ FaPen }
+				value={ title }
+				onChange={ setTitle }
+			/>
+			<div className="flex flex-col gap-2">
+				<ButtonPrimary 
+					className="flex gap-2 justify-center items-center"
+					type="submit"
+				>
+					<FaCheck />
+					Dashboard erstellen
+				</ButtonPrimary>
+				<ButtonSecondary onClick={ () => setOpen(false) }>
+					Abbrechen
+				</ButtonSecondary>
+			</div>
+		</form>
+	)
+}

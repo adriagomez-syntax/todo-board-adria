@@ -6,8 +6,8 @@ import DashboardSection from "../../main/dashboard/DashboardSection";
 export default function SidebarContent() {
 	return (
 		<>
-			<div className="flex-1 p-4 bg-background">
-				<div className="flex flex-col gap-4">
+			<div className="flex-1 p-4 bg-background h-full overflow-hidden">
+				<div className="flex flex-col gap-4 max-h-full">
 					<DashboardSection />
 				</div>
 			</div>
