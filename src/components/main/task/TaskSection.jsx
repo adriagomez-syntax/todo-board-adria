@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, useState } from "react"
+import { useContext } from "react"
 import useTasks from "../../../hooks/useTasks"
 import TaskList from "./TaskList"
 import BoardContext from "../../../context/BoardContext"
@@ -11,16 +11,13 @@ import TaskCreate from "./TaskCreate"
 import useTaskDrag from "../../../hooks/useTaskDrag"
 import { updateTask } from "../../../services/tasks"
 import ModalContext from "../../../context/ModalContext"
+import useTaskCreate from "../../../hooks/useTaskCreate"
 
 export default function TaskSection() {
 	
 	const { showError } = useContext(ModalContext)
 	const { dashboardSelected } = useContext(BoardContext)
 	const { todoList, doingList, doneList, loading, errorMsg, setLoading, reload } = useTasks(dashboardSelected?.id)
-	const [createOpen, setCreateOpen] = useState(false)
-	const [title, setTitle] = useState("")
-	const titleRef = useRef(null)
-	const [status, setStatus] = useState("todo")
 
 	const taskTypes = [
 		{ type: "todo", title: "Ausstehend", color: "bg-background-dark", textDecoration: "", tasks: todoList },
@@ -38,20 +35,8 @@ export default function TaskSection() {
 	}
 
 	const { setDragTask, handleDrop, onDragStart } = useTaskDrag(handleUpdate)
-	
-	function openCreate(type = "todo") {
-		setStatus(type)
-		setCreateOpen(true)
-	}
 
-	function onClose() {
-		setCreateOpen(false)
-		setTitle("")
-	}
-
-	useEffect(() => {
-		if (createOpen) { titleRef.current?.focus() }
-	}, [createOpen])
+	const { title, setTitle, titleRef, status, setStatus, openCreate, isCreateOpen, closeCreate } = useTaskCreate()
 
 	return (
 		<section className="flex flex-col gap-4 p-4 h-full">
@@ -78,13 +63,13 @@ export default function TaskSection() {
 							))}
 						</div>
 						<TaskCreate
-							open={ createOpen }
+							open={ isCreateOpen() }
 							title={ title }
 							setTitle={ setTitle }
 							titleRef={ titleRef }
 							status={ status }
 							setStatus={ setStatus }
-							onClose={ onClose }
+							onClose={ closeCreate }
 						/>
 					</TaskContext>
 			}
