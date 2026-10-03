@@ -1,6 +1,7 @@
 import { useContext, useEffect } from "react"
 import { useNavigate, useParams } from "react-router"
 import BoardContext from "../context/BoardContext"
+import TaskSection from "../components/main/task/TaskSection"
 
 export default function BoardPage() {
 	
@@ -27,8 +28,6 @@ export default function BoardPage() {
 	}, [id, setDashboardSelected, navigate, boards, board])
 
 	return (
-		<section>
-			
-		</section>
+		<TaskSection />
 	)
 }

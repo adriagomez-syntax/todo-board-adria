@@ -12,7 +12,7 @@ export default function LoginCard() {
 	const { authOption, loading } = useContext(LoginContext)
 	
 	return (
-		<Card className="w-full flex flex-col gap-4">
+		<Card className="bg-background-mid w-full flex flex-col gap-4">
 			<LoginType />
 			{ loading
 				? <Loader />
