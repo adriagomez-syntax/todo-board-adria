@@ -6,7 +6,7 @@ import DashboardItem from "./DashboardItem"
 
 export default function DashboardList({ openCreate }) {
 	
-	const { boards, setLoading, reload } = useContext(BoardContext)
+	const { boards } = useContext(BoardContext)
 
 	return (
 		<div className="flex flex-col gap-4 h-full overflow-hidden">
@@ -14,8 +14,6 @@ export default function DashboardList({ openCreate }) {
 				{boards.map(dashboard => (
 					<DashboardItem
 						key={ dashboard.id }
-						setLoading={ setLoading }
-						reload={ reload }
 						{...dashboard}
 					/>
 				))}

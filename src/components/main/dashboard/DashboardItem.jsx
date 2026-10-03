@@ -6,11 +6,11 @@ import ModalContext from "../../../context/ModalContext";
 import BoardContext from "../../../context/BoardContext";
 import { useNavigate } from "react-router";
 
-export default function DashboardItem({ setLoading, reload, id, title, created_at }) {
+export default function DashboardItem({ id, title, created_at }) {
 	
 	const navigate = useNavigate()
 	const { showError, showConfirm } = useContext(ModalContext)
-	const { dashboardSelected } = useContext(BoardContext)
+	const { dashboardSelected, setLoading, reload } = useContext(BoardContext)
 
 	function confirmDelete() {
 		showConfirm(
