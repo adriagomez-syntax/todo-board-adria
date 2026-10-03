@@ -33,7 +33,7 @@ export default function DashboardSection({ menuClassName = "", className = "" })
 				</div>
 				{!loading && !errorMsg &&
 					<div className="px-1 bg-background-dark font-bold text-2xs rounded-md">
-						{ boards.length }
+						{ boards && boards.length }
 					</div>
 				}
 			</div>
@@ -41,7 +41,7 @@ export default function DashboardSection({ menuClassName = "", className = "" })
 				? <Loader />
 				: errorMsg
 					? <ShowError error={ errorMsg } />
-					: boards.length > 0
+					: boards && boards.length > 0
 						? <DashboardList openCreate={ setMenuOpen } />
 						: <DashboardEmpty openCreate={ setMenuOpen } />
 			}

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { getBoards } from "../services/boards"
 
 function useBoards() {
-	const [boards, setBoards] = useState([])
+	const [boards, setBoards] = useState(null)
 	const [loading, setLoading] = useState(true)
 	const [errorMsg, setErrorMsg] = useState(null)
 

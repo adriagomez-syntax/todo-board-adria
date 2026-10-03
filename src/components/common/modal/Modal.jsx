@@ -1,7 +1,4 @@
 export default function Modal({ open, setOpen, className, children }) {
-	
-	console.log(open)
-	
 	return (
 		<div className={(open ? "visible opacity-100" : "invisible opacity-0") + " fixed inset-0 z-100 transition"}>
 			<div className="absolute inset-0 bg-black/30" onClick={ () => setOpen(false) } />

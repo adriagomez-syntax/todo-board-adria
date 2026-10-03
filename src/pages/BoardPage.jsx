@@ -14,13 +14,10 @@ export default function BoardPage() {
 	const board = id !== null ? boards?.find(item => item.id === id) ?? null : null
 
 	useEffect(() => {
+		if (boards === null) { return }
+
 		if (id === null && boards.length > 0) {
 			navigate(`/board/${boards[0].id}`)
-			return
-		}
-
-		if (id !== null && board === null) {
-			navigate("/board")
 			return
 		}
 

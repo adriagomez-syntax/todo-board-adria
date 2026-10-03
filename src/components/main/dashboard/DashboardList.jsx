@@ -11,7 +11,7 @@ export default function DashboardList({ openCreate }) {
 	return (
 		<div className="flex flex-col gap-4 h-full overflow-hidden">
 			<ul className="flex flex-col gap-1 h-full overflow-y-scroll">
-				{boards.map(dashboard => (
+				{boards && boards.map(dashboard => (
 					<DashboardItem
 						key={ dashboard.id }
 						{...dashboard}
