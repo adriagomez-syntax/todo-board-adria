@@ -7,7 +7,7 @@ import { createBoard } from "../../../services/boards";
 import ModalContext from "../../../context/ModalContext";
 import UserContext from "../../../context/UserContext";
 
-export default function DashboardCreate({ setOpen, setLoading, reload }) {
+export default function DashboardCreate({ inputRef, setOpen, setLoading, reload }) {
 	
 	const [title, setTitle] = useState("")
 	const { showError } = useContext(ModalContext)
@@ -48,6 +48,7 @@ export default function DashboardCreate({ setOpen, setLoading, reload }) {
 				icon={ FaPen }
 				value={ title }
 				onChange={ setTitle }
+				ref={ inputRef }
 			/>
 			<div className="flex flex-col gap-2">
 				<ButtonPrimary 
