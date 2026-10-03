@@ -11,7 +11,7 @@ export default function Header() {
 	const [openMenu, setOpenMenu] = useState(false)
 
 	return (
-		<header className="flex justify-between items-center h-15 p-4 shadow-b bg-background-mid">
+		<header className="flex justify-between items-center h-15 p-4 shadow-b bg-background-dark">
 			<Button 
 				className="md:hidden bg-background p-2 rounded-md"
 				onClick={ () => setOpenMenu(true) }

@@ -1,22 +1,22 @@
 import { useContext, useEffect } from "react";
-import UserContext from "../../../context/UserContext";
+import BoardContext from "../../../context/BoardContext";
 import ButtonPrimary from "../../common/ButtonPrimary";
 import { FaPlusCircle } from "react-icons/fa";
 import DashboardItem from "./DashboardItem"
 
-export default function DashboardList({ dashboards, openCreate, setLoading, reload }) {
+export default function DashboardList({ openCreate }) {
 	
-	const { dashboardSelected, setDashboardSelected } = useContext(UserContext)
+	const { boards, dashboardSelected, setDashboardSelected, setLoading, reload } = useContext(BoardContext)
 	
 	useEffect(() => {
-		if (dashboardSelected === null && dashboards.length > 0) { setDashboardSelected(dashboards[0].id) }
+		if (dashboardSelected === null && boards.length > 0) { setDashboardSelected(boards[0].id) }
 	
-	}, [dashboards, dashboardSelected, setDashboardSelected])
+	}, [boards, dashboardSelected, setDashboardSelected])
 
 	return (
 		<div className="flex flex-col gap-4 h-full overflow-hidden">
 			<ul className="flex flex-col gap-1 h-full overflow-y-scroll">
-				{dashboards.map(dashboard => (
+				{boards.map(dashboard => (
 					<DashboardItem
 						key={ dashboard.id }
 						setLoading={ setLoading }

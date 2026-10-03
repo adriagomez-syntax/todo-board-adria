@@ -30,7 +30,7 @@ export default function HeaderUser() {
 				</div>
 			</div>
 			<Button 
-				className=" md:block p-2 bg-background rounded-md hover:text-red-500"
+				className="hidden md:block p-2 bg-background rounded-md hover:text-red-500"
 				onClick={ logout }
 			>
 				<FaSignOutAlt />

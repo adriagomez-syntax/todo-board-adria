@@ -17,7 +17,7 @@ export default function ConfirmModal({ open, setOpen, callback, title, descripti
 		>
 			<div className="flex flex-col gap-2">
 				<h1 className="font-secondary font-bold text-lg">{ title }</h1>
-				<div className="text-xs">{ description }</div>
+				<div className="text-2xs">{ description }</div>
 			</div>
 			<div className="flex justify-between gap-2 w-full">
 				<ButtonPrimary 

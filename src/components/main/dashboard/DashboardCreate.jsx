@@ -5,13 +5,13 @@ import ButtonPrimary from "../../common/ButtonPrimary";
 import ButtonSecondary from "../../common/ButtonSecondary";
 import { createBoard } from "../../../services/boards";
 import ModalContext from "../../../context/ModalContext";
-import UserContext from "../../../context/UserContext";
+import BoardContext from "../../../context/BoardContext";
 
-export default function DashboardCreate({ inputRef, setOpen, setLoading, reload }) {
+export default function DashboardCreate({ inputRef, setOpen }) {
 	
 	const [title, setTitle] = useState("")
 	const { showError } = useContext(ModalContext)
-	const { setDashboardSelected } = useContext(UserContext)
+	const { setDashboardSelected, setLoading, reload } = useContext(BoardContext)
 
 	async function onSubmit(event) {
 		event.preventDefault()

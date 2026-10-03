@@ -3,12 +3,12 @@ import Button from "../../common/Button";
 import { deleteBoard } from "../../../services/boards";
 import { useContext } from "react";
 import ModalContext from "../../../context/ModalContext";
-import UserContext from "../../../context/UserContext";
+import BoardContext from "../../../context/BoardContext";
 
 export default function DashboardItem({ setLoading, reload, id, title, created_at }) {
 	
 	const { showError, showConfirm } = useContext(ModalContext)
-	const { dashboardSelected, setDashboardSelected } = useContext(UserContext)
+	const { dashboardSelected, setDashboardSelected } = useContext(BoardContext)
 
 	function confirmDelete() {
 		showConfirm(

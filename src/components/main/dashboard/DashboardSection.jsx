@@ -1,16 +1,16 @@
 import { FaColumns } from "react-icons/fa";
 import DashboardList from "./DashboardList";
 import DashboardEmpty from "./DashboardEmpty";
-import useBoards from "../../../hooks/useBoards";
 import Loader from "../../common/Loader";
 import ShowError from "../../common/ShowError"
 import SidebarMenu from "../../common/SidebarMenu";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import DashboardCreate from "./DashboardCreate";
+import BoardContext from "../../../context/BoardContext";
 
-export default function DashboardSection({ className = "" }) {
+export default function DashboardSection({ menuClassName = "", className = "" }) {
 	
-	const { boards, loading, errorMsg, setLoading, reload } = useBoards()
+	const { boards, loading, errorMsg } = useContext(BoardContext)
 	const [menuOpen, setMenuOpen] = useState(false)
 	const inputRef = useRef(null)
 
@@ -36,11 +36,19 @@ export default function DashboardSection({ className = "" }) {
 				: errorMsg
 					? <ShowError error={ errorMsg } />
 					: boards.length > 0
-						? <DashboardList dashboards={ boards } openCreate={ setMenuOpen } setLoading={ setLoading } reload={ reload } />
+						? <DashboardList openCreate={ setMenuOpen } />
 						: <DashboardEmpty />
 			}
-			<SidebarMenu direction="bottom" open={ menuOpen } setOpen={ setMenuOpen }>
-				<DashboardCreate inputRef={ inputRef } setOpen={ setMenuOpen } reload={ reload } setLoading={ setLoading } />
+			<SidebarMenu
+				className={ menuClassName }
+				direction="bottom" 
+				open={ menuOpen } 
+				setOpen={ setMenuOpen }
+			>
+				<DashboardCreate 
+					inputRef={ inputRef } 
+					setOpen={ setMenuOpen }
+				/>
 			</SidebarMenu>
 		</section>
 	)
