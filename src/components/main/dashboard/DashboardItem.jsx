@@ -38,9 +38,10 @@ export default function DashboardItem({ id, title, created_at }) {
 
 	async function updateTitle() {
 		setEditEnabled(false)
+		if (inputTitle === title) { return }
 		
 		updateBoard(inputTitle, id)
-			.then(() => navigate("/"))
+			.then(() => {})
 			.catch(error => showError(error.message))
 	}
 

@@ -37,6 +37,7 @@ export default function TaskItem({ task, textDecoration }) {
 
 	function updateTitle() {
 		setEditEnabled(false)
+		if (title === task.title) { return }
 		
 		updateTask({ id: task.id, title: title })
 			.then(() => {})
