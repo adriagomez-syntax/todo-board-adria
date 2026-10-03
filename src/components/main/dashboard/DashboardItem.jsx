@@ -38,14 +38,14 @@ export default function DashboardItem({ setLoading, reload, id, title, created_a
 	
 	return (
 		<li 
-			className={`${id === dashboardSelected ? "bg-primary/40 border-l-2 border-accent-3" : "bg-background-dark cursor-pointer hover:opacity-80"} px-3 py-2  rounded-md`}
+			className={`${id === dashboardSelected?.id ? "bg-primary/40 border-l-2 border-accent-3" : "bg-background-dark cursor-pointer hover:opacity-80"} px-3 py-2  rounded-md`}
 			onClick={() => navigate(`/board/${id}`)}
 		>
 			<div className="flex gap-2 justify-between items-center">
 				<h1 className="font-secondary font-bold tracking-wider text-md truncate">
 					{ title }
 				</h1>
-				{id === dashboardSelected && <div className="bg-accent-3 p-1 rounded-full"></div>}
+				{id === dashboardSelected?.id && <div className="bg-accent-3 p-1 rounded-full"></div>}
 			</div>
 			<div className="flex gap-2 justify-between items-center text-2xs">
 				<p className="flex gap-1">

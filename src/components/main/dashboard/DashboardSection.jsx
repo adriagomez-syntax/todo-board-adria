@@ -12,10 +12,16 @@ export default function DashboardSection({ menuClassName = "", className = "" })
 	
 	const { boards, loading, errorMsg } = useContext(BoardContext)
 	const [menuOpen, setMenuOpen] = useState(false)
+	const [title, setTitle] = useState("")
 	const inputRef = useRef(null)
 
+	function onClose() {
+		setMenuOpen(false)
+		setTitle("")
+	}
+
 	useEffect(() => {
-		inputRef.current?.focus()
+		if (menuOpen) { inputRef.current?.focus() }
 	}, [menuOpen])
 	
 	return (
@@ -43,11 +49,13 @@ export default function DashboardSection({ menuClassName = "", className = "" })
 				className={ menuClassName }
 				direction="bottom" 
 				open={ menuOpen } 
-				setOpen={ setMenuOpen }
+				setOpen={ onClose }
 			>
-				<DashboardCreate 
+				<DashboardCreate
+					title={ title }
+					setTitle={ setTitle }
 					inputRef={ inputRef } 
-					setOpen={ setMenuOpen }
+					onClose={ onClose }
 				/>
 			</SidebarMenu>
 		</section>

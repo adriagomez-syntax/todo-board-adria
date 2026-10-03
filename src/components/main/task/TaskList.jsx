@@ -1,8 +1,13 @@
 import { FaPlusCircle } from "react-icons/fa";
 import TaskItem from "./TaskItem";
 import ButtonSecondary from "../../common/ButtonSecondary";
+import { useContext } from "react";
+import TaskContext from "../../../context/TaskContext";
 
-export default function TaskList({ title, color, textDecoration, tasks }) {
+export default function TaskList({ type, title, color, textDecoration, tasks }) {
+	
+	const { openCreate } = useContext(TaskContext)
+	
 	return (
 		<div className="flex flex-col gap-4 bg-background-mid p-4 rounded-md">
 			<div className="flex justify-between gap-2 items-center">
@@ -19,7 +24,10 @@ export default function TaskList({ title, color, textDecoration, tasks }) {
 					{ ...task }
 				/>
 			))}
-			<ButtonSecondary className="flex gap-1 justify-center items-center">
+			<ButtonSecondary 
+				className="flex gap-1 justify-center items-center"
+				onClick={ () => openCreate(type) }
+			>
 				<FaPlusCircle />
 				<p>Aufgabe hier einfügen</p>
 			</ButtonSecondary>

@@ -24,7 +24,7 @@ export default function BoardPage() {
 			return
 		}
 
-		setDashboardSelected(id)
+		setDashboardSelected(board ?? null)
 	}, [id, setDashboardSelected, navigate, boards, board])
 
 	return (

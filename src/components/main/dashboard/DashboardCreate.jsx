@@ -1,6 +1,6 @@
 import { FaCheck, FaPen, FaRegCalendarPlus } from "react-icons/fa";
 import Input from "../../common/Input";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import ButtonPrimary from "../../common/ButtonPrimary";
 import ButtonSecondary from "../../common/ButtonSecondary";
 import { createBoard } from "../../../services/boards";
@@ -8,10 +8,9 @@ import ModalContext from "../../../context/ModalContext";
 import BoardContext from "../../../context/BoardContext";
 import { useNavigate } from "react-router";
 
-export default function DashboardCreate({ inputRef, setOpen }) {
+export default function DashboardCreate({ title, setTitle, inputRef, onClose }) {
 	
 	const navigate = useNavigate()
-	const [title, setTitle] = useState("")
 	const { showError } = useContext(ModalContext)
 	const { setLoading, reload } = useContext(BoardContext)
 
@@ -19,10 +18,9 @@ export default function DashboardCreate({ inputRef, setOpen }) {
 		event.preventDefault()
 
 		setLoading(true)
-		setOpen(false)
 
 		const titleSend = title
-		setTitle("")
+		onClose()
 
 		createBoard(titleSend)
 			.then(data => {
@@ -51,6 +49,7 @@ export default function DashboardCreate({ inputRef, setOpen }) {
 				value={ title }
 				onChange={ setTitle }
 				ref={ inputRef }
+				required={ true }
 			/>
 			<div className="flex flex-col gap-2">
 				<ButtonPrimary 
@@ -60,7 +59,7 @@ export default function DashboardCreate({ inputRef, setOpen }) {
 					<FaCheck />
 					Dashboard erstellen
 				</ButtonPrimary>
-				<ButtonSecondary onClick={ () => setOpen(false) }>
+				<ButtonSecondary onClick={ () => onClose() }>
 					Abbrechen
 				</ButtonSecondary>
 			</div>
