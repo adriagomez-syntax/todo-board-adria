@@ -77,13 +77,12 @@ export default function TaskItem({ task, textDecoration }) {
 				>
 					<FaTrash />
 				</Button>
-				<div
+				<button
 					className="touch-none cursor-grab active:cursor-grabbing"
-					onDragStart={ (event) => onDragStart(event, task) }
-					draggable
+					onPointerDown={ (event) => onDragStart(event, task) }
 				>
 					<FaGripVertical />
-				</div>
+				</button>
 			</div>
 		</Card>
 	)

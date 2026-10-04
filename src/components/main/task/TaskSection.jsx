@@ -31,7 +31,7 @@ export default function TaskSection() {
 			.catch(error => showError(error.message))
 	}
 
-	const { setDragTask, handleDrop, onDragStart } = useTaskDrag(handleUpdate)
+	const { setDragTask, onDrop, onDragMove, onDragStart } = useTaskDrag(handleUpdate)
 	const { titleTask, setTitleTask, titleTaskRef, statusTask, setStatusTask, isTaskOpen, openTask, closeTask } = useTaskCreate()
 
 	return (
@@ -40,7 +40,7 @@ export default function TaskSection() {
 				? <Loader />
 				: errorMsg
 					? <ShowError error={ errorMsg } />
-					: <TaskContext value={{ openTask, setDragTask, handleDrop, onDragStart }}>
+					: <TaskContext value={{ openTask, setDragTask, onDrop, onDragStart }}>
 						<div>
 							<ButtonPrimary 
 								className="flex gap-1 justify-center items-center"
@@ -50,7 +50,10 @@ export default function TaskSection() {
 								<p>Neue Aufgabe erstellen</p>
 							</ButtonPrimary>
 						</div>
-						<div className="grid grid-cols-1 gap-4 md:grid-cols-3 overflow-scroll">
+						<div 
+							className="grid grid-cols-1 gap-4 md:grid-cols-3 overflow-scroll"
+							onPointerMove={ (event) => onDragMove(event) }
+						>
 							{ taskTypes.map((type, index) => (
 								<TaskList 
 									key={ index }
