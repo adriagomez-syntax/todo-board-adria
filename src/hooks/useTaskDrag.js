@@ -5,6 +5,9 @@ function useTaskDrag(handleUpdate) {
 	const dragElement = useRef(null)
 
 	function onDrop(event, status) {
+		
+		alert("dropped")
+		
 		if (dragElement.current === null || dragTask === null) { return }
 
 		dragElement.current.style.display = "none"
@@ -25,8 +28,10 @@ function useTaskDrag(handleUpdate) {
 	function onDragMove(event) {
 		if (dragElement.current === null) { return }
 
-		dragElement.current.style.top = `${event.clientY - 20}px`
-    	dragElement.current.style.left = `${event.clientX - 50}px`
+		const rect = dragElement.current.getBoundingClientRect();
+
+		dragElement.current.style.top = `${event.clientY - rect.top / 8}px`
+    	dragElement.current.style.left = `${event.clientX - rect.width + 15}px`
 	}
 
 	function onDragStart(event, task) {
