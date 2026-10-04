@@ -40,7 +40,7 @@ export default function TaskSection() {
 				? <Loader />
 				: errorMsg
 					? <ShowError error={ errorMsg } />
-					: <TaskContext value={{ openTask, setDragTask, onDrop, onDragStart }}>
+					: <TaskContext value={{ openTask, setDragTask, onDragStart }}>
 						<div>
 							<ButtonPrimary 
 								className="flex gap-1 justify-center items-center"
@@ -53,6 +53,7 @@ export default function TaskSection() {
 						<div 
 							className="grid grid-cols-1 gap-4 md:grid-cols-3 overflow-scroll"
 							onPointerMove={ (event) => onDragMove(event) }
+							onPointerUp={ (event) => onDrop(event) }
 						>
 							{ taskTypes.map((type, index) => (
 								<TaskList 

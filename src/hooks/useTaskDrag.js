@@ -4,18 +4,23 @@ function useTaskDrag(handleUpdate) {
 	const [dragTask, setDragTask] = useState(null)
 	const dragElement = useRef(null)
 
-	function onDrop(status) {
-		alert(status)
+	function onDrop(event) {
 		if (dragElement.current === null || dragTask === null) { return }
 
-		alert(dragTask.status)
-		if (dragTask.status !== status)
+		const element = document.elementFromPoint(event.clientX, event.clientY);
+  		const list = element?.closest("[data-type]");
+
+		alert("start")
+		if (list)
 		{
-			alert("enter")
-			handleUpdate(dragTask, status)
+			const status = list.dataset?.type
+			alert(status)
+			if (status && dragTask.status !== status) {
+				alert("enter")
+				handleUpdate(dragTask, status)
+			}
 		}
 
-		alert("end")
 		dragElement.current?.remove()
 		dragElement.current = null
 		setDragTask(null)

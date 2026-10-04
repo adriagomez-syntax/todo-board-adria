@@ -6,12 +6,12 @@ import TaskContext from "../../../context/TaskContext";
 
 export default function TaskList({ type, title, color, textDecoration, tasks }) {
 	
-	const { openTask, onDrop } = useContext(TaskContext)
+	const { openTask } = useContext(TaskContext)
 	
 	return (
 		<div 
 			className="flex flex-col gap-4 bg-background-mid p-4 rounded-md"
-			onPointerUp={ () => onDrop(type) }
+			data-type={ type }
 		>
 			<div className="flex justify-between gap-2 items-center">
 				<div className="flex gap-2 items-center">
