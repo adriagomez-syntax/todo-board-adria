@@ -5,13 +5,17 @@ function useTaskDrag(handleUpdate) {
 	const dragElement = useRef(null)
 
 	function onDrop(status) {
+		alert(status)
 		if (dragElement.current === null || dragTask === null) { return }
 
+		alert(dragTask.status)
 		if (dragTask.status !== status)
 		{
+			alert("enter")
 			handleUpdate(dragTask, status)
 		}
 
+		alert("end")
 		dragElement.current?.remove()
 		dragElement.current = null
 		setDragTask(null)

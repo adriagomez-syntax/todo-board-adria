@@ -50,7 +50,7 @@ export default function TaskItem({ task, textDecoration }) {
 	
 	return (
 		<Card 
-			className="flex gap-2 justify-between bg-background-dark"
+			className="flex gap-2 justify-between bg-background-dark text-text"
 		>
 			<div className="flex gap-2">
 				<div>
