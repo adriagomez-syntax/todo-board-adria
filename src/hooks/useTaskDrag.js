@@ -10,13 +10,10 @@ function useTaskDrag(handleUpdate) {
 		const element = document.elementFromPoint(event.clientX, event.clientY);
   		const list = element?.closest("[data-type]");
 
-		alert("start")
 		if (list)
 		{
 			const status = list.dataset?.type
-			alert(status)
 			if (status && dragTask.status !== status) {
-				alert("enter")
 				handleUpdate(dragTask, status)
 			}
 		}
