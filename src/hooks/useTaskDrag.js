@@ -7,6 +7,8 @@ function useTaskDrag(handleUpdate) {
 	function onDrop(event, status) {
 		if (dragElement.current === null || dragTask === null) { return }
 
+		dragElement.current.style.display = "none"
+
 		const target = document.elementFromPoint(event.clientX, event.clientY)
 		const list = target?.closest("[data-list]")
 
