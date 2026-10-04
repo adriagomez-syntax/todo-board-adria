@@ -4,18 +4,10 @@ function useTaskDrag(handleUpdate) {
 	const [dragTask, setDragTask] = useState(null)
 	const dragElement = useRef(null)
 
-	function onDrop(event, status) {
-		
-		alert("dropped")
-		
+	function onDrop(status) {
 		if (dragElement.current === null || dragTask === null) { return }
 
-		dragElement.current.style.display = "none"
-
-		const target = document.elementFromPoint(event.clientX, event.clientY)
-		const list = target?.closest("[data-list]")
-
-		if (list && dragTask.status !== status)
+		if (dragTask.status !== status)
 		{
 			handleUpdate(dragTask, status)
 		}

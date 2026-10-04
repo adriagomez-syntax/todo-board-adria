@@ -11,8 +11,7 @@ export default function TaskList({ type, title, color, textDecoration, tasks }) 
 	return (
 		<div 
 			className="flex flex-col gap-4 bg-background-mid p-4 rounded-md"
-			data-list={ type }
-			onPointerUp={ (event) => onDrop(event, type) }
+			onPointerUp={ () => onDrop(type) }
 		>
 			<div className="flex justify-between gap-2 items-center">
 				<div className="flex gap-2 items-center">
