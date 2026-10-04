@@ -78,7 +78,7 @@ export default function TaskItem({ task, textDecoration }) {
 					<FaTrash />
 				</Button>
 				<div
-					className="cursor-grab active:cursor-grabbing"
+					className="touch-none cursor-grab active:cursor-grabbing"
 					onDragStart={ (event) => onDragStart(event, task) }
 					draggable
 				>

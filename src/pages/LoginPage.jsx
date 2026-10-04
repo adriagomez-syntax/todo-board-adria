@@ -15,7 +15,7 @@ export default function LoginPage() {
 
 	return (
 		<>
-			<Main className="flex-1 flex flex-col gap-4 items-center justify-center">
+			<Main className="flex flex-col gap-4 items-center justify-center p-4">
 				<LoginHeader />
 				<LoginContext value={{ authOption, setAuthOption, email, setEmail, password, setPassword, loading, errorMsg, handleSubmit, doGithub, doDiscord }}>
 					<LoginCard />
