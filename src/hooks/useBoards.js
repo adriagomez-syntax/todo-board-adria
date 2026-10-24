@@ -34,7 +34,7 @@ function useBoards() {
 
 		load()
 		
-		return () => supabase.removeChannel(channel)
+		return () => { supabase.removeChannel(channel) }
 	}, [])
 
 	return { boards, loading, errorMsg }

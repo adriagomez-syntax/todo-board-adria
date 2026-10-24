@@ -45,7 +45,7 @@ function useTasks(boardId) {
 
 		load()
 
-		return () => supabase.removeChannel(channel)
+		return () => { supabase.removeChannel(channel) }
 	}, [boardId])
 
 	return { todoList, doingList, doneList, loading, errorMsg }
